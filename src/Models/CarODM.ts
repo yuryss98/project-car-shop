@@ -26,6 +26,14 @@ class CarODM {
   public async create(car: ICar): Promise<ICar> {
     return this.model.create({ ...car });
   }
+
+  public async listCar(id?: string) {
+    if (id) {
+      return this.model.findOne({ _id: id });
+    }
+
+    return this.model.find({ });
+  }
 }
 
 export default CarODM;
