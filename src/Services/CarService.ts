@@ -4,22 +4,25 @@ import Car from '../Domains/Car';
 import HttpException from '../error/HttpException';
 
 export default class CarService {
+  private ODM: CarODM;
+
+  constructor() {
+    this.ODM = new CarODM();    
+  }
+
   async createCar(car: ICar) {
-    const carODM = new CarODM();
-    const newCar = await carODM.create(car);
+    const newCar = await this.ODM.create(car);
     return new Car(newCar);
   }
 
   async getAll() {
-    const carODM = new CarODM();
-    const cars = await carODM.listCar() as ICar[];
+    const cars = await this.ODM.findAll() as ICar[];
 
     return cars.map((car) => new Car(car));
   }
 
   async getById(id: string) {
-    const carODM = new CarODM();
-    const car = await carODM.listCar(id) as ICar;
+    const car = await this.ODM.findById(id) as ICar;
 
     if (!car) {
       throw new HttpException(404, 'Car not found');
@@ -29,12 +32,11 @@ export default class CarService {
   }
 
   async updateCar(id: string, car: ICar) {
-    const carODM = new CarODM();
     await this.getById(id);
 
     const updatedCar = new Car({ id, ...car });
 
-    await carODM.update(id, updatedCar);
+    await this.ODM.update(id, car);
 
     return updatedCar;
   }
