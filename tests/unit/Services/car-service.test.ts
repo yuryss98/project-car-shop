@@ -60,4 +60,13 @@ describe('Car Service', function () {
       expect(updatedCar).to.deep.equal(cars[0]);
     });
   });
+
+  describe('Deletar carro', function () {
+    it('Deve ser possivel deletar um carro', async function () {
+      sinon.stub(Model, 'findOne').resolves(cars[2]);
+      sinon.stub(Model, 'deleteOne').resolves();
+  
+      await carService.deleteCar(cars[2].id);
+    });
+  });
 });
