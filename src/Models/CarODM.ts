@@ -1,18 +1,10 @@
-import {
-  Model,
-  Schema,
-  model,
-  models,
-} from 'mongoose';
-import Car from '../Domains/Car';
+import { Schema } from 'mongoose';
 import ICar from '../Interfaces/ICar';
+import AbstractODM from './AbstractODM';
 
-class CarODM {
-  private schema: Schema;
-  private model: Model<ICar>;
-
+export default class CarODM extends AbstractODM<ICar> {
   constructor() {
-    this.schema = new Schema<ICar>({
+    const schema = new Schema<ICar>({
       model: { type: String, required: true },
       year: { type: Number, required: true },
       color: { type: String, required: true },
@@ -21,24 +13,7 @@ class CarODM {
       doorsQty: { type: Number, required: true },
       seatsQty: { type: Number, required: true },
     });
-    this.model = models.Car || model('Car', this.schema);
-  }
 
-  public async create(car: ICar): Promise<ICar> {
-    return this.model.create({ ...car });
-  }
-
-  public async listCar(id?: string) {
-    if (id) {
-      return this.model.findOne({ _id: id });
-    }
-
-    return this.model.find({ });
-  }
-
-  public async update(id: string, updateCar: Car) {
-    return this.model.updateOne({ id }, { ...updateCar });
+    super(schema, 'Car');
   }
 }
-
-export default CarODM;
