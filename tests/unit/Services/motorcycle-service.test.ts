@@ -57,9 +57,21 @@ describe('Motorcycle Service', function () {
 
       const motorCycleId = '6348513f34c397abcad040b4';
   
-      const updatedMotorcycle = await motorcycleService.update(motorCycleId, motorcycles[0]);
+      const updatedMotorcycle = await motorcycleService
+        .updateMotorcycle(motorCycleId, motorcycles[0]);
   
       expect(updatedMotorcycle).to.deep.equal(motorcycles[0]);
+    });
+  });
+
+  describe('Deletar motocicleta', function () {
+    it('Deve ser possivel deletar uma motocicleta', async function () {
+      sinon.stub(Model, 'findOne').resolves(motorcycles[2]);
+      sinon.stub(Model, 'deleteOne').resolves();
+
+      const motorCycleId = '6348513f34c397abcad040b4';
+  
+      await motorcycleService.deleteMotorcycle(motorCycleId);
     });
   });
 });
