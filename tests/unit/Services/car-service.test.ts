@@ -11,7 +11,7 @@ describe('Car Service', function () {
 
   const carService = new CarService();
 
-  describe('Create car', function () {
+  describe('Criar carro', function () {
     it('Deve ser possivel criar um carro', async function () {
       sinon.stub(Model, 'create').resolves(cars[0]);
   
@@ -21,7 +21,7 @@ describe('Car Service', function () {
     });
   });
 
-  describe('Get Car', function () {
+  describe('Listar carro', function () {
     it('Deve ser possivel listar todos os carros', async function () {
       sinon.stub(Model, 'find').resolves(cars);
   
@@ -47,6 +47,17 @@ describe('Car Service', function () {
   
       expect(error.statusCode).to.equal(404);
       expect(error.message).to.equal('Car not found');
+    });
+  });
+
+  describe('Atualizar carro', function () {
+    it('Deve ser possivel atualizar um carro', async function () {
+      sinon.stub(Model, 'findOne').resolves(cars[2]);
+      sinon.stub(Model, 'updateOne').resolves();
+  
+      const updatedCar = await carService.updateCar(cars[2].id, cars[0]);
+  
+      expect(updatedCar).to.deep.equal(cars[0]);
     });
   });
 });
