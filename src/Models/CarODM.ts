@@ -4,6 +4,7 @@ import {
   model,
   models,
 } from 'mongoose';
+import Car from '../Domains/Car';
 import ICar from '../Interfaces/ICar';
 
 class CarODM {
@@ -33,6 +34,10 @@ class CarODM {
     }
 
     return this.model.find({ });
+  }
+
+  public async update(id: string, updateCar: Car) {
+    return this.model.updateOne({ id }, { ...updateCar });
   }
 }
 
