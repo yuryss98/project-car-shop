@@ -40,4 +40,10 @@ export default class CarService {
 
     return updatedCar;
   }
+
+  async deleteCar(id: string) {
+    await this.getById(id);
+
+    await this.ODM.delete(id);
+  }
 }
