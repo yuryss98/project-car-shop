@@ -3,7 +3,7 @@ import CarODM from '../Models/CarODM';
 import Car from '../Domains/Car';
 import HttpException from '../error/HttpException';
 
-export default class CreateCarService {
+export default class CarService {
   async createCar(car: ICar) {
     const carODM = new CarODM();
     const newCar = await carODM.create(car);
