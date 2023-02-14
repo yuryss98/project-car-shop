@@ -31,7 +31,7 @@ export default class MotorcycleService {
     return new Motorcycle(motorcycle);
   }
 
-  async update(id: string, motorcycle: IMotorcycle) {
+  async updateMotorcycle(id: string, motorcycle: IMotorcycle) {
     await this.getById(id);
 
     const updatedMotorcycle = new Motorcycle({ id, ...motorcycle });
@@ -39,5 +39,11 @@ export default class MotorcycleService {
     await this.ODM.update(id, motorcycle);
 
     return updatedMotorcycle;
+  }
+
+  async deleteMotorcycle(id: string) {
+    await this.getById(id);
+
+    await this.ODM.delete(id);
   }
 }
