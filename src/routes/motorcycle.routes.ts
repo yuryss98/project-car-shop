@@ -20,7 +20,12 @@ routes.get(
 
 routes.put(
   '/:id',
-  (req, res, next) => new MotorcycleController(req, res, next).updateCar(),
+  (req, res, next) => new MotorcycleController(req, res, next).updateMotorcycle(),
+);
+
+routes.delete(
+  '/:id',
+  (req, res, next) => new MotorcycleController(req, res, next).deleteMotorCycle(),
 );
 
 export default routes;

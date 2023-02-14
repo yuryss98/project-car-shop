@@ -41,10 +41,19 @@ export default class MotorcycleController {
     }
   }
 
-  public async updateCar() {
+  public async updateMotorcycle() {
     try {
-      const car = await this.service.update(this.req.params.id, this.req.body);
+      const car = await this.service.updateMotorcycle(this.req.params.id, this.req.body);
       return this.res.status(200).json(car);
+    } catch (error) {
+      this.next(error);
+    }
+  }
+
+  public async deleteMotorCycle() {
+    try {
+      await this.service.deleteMotorcycle(this.req.params.id);
+      return this.res.status(204).end();
     } catch (error) {
       this.next(error);
     }
